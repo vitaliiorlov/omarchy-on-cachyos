@@ -20,6 +20,8 @@ This script does not:
  4) Install graphics drivers
  5) Install or configure a login display manager
 
+All of the above need to be done when you install CachyOS. 
+
 ## 3. Important Notes
 
 This script (and README.md) is intended primarily for the experienced Arch Linux user. The author of this README.md assumes the reader is comfortable using a shell/command line and is familiar with Arch specific terms such as AUR.
@@ -40,13 +42,15 @@ The philosophy behind this script is to produce a strong and stable blend of Cac
 
 ## 4. Pre-Requisites
 
-IMPORTANT: This script does not install CachyOS. You must do that separately (and first.) This script is intended to be run on a fresh installation of CachyOS with the following configuration choices made: (Note, for information installing CachyOS, please refer to https://www.cachyos.org.) 
+IMPORTANT: This script does not install CachyOS. You must do that separately (and first.) This script is intended to be run on a fresh installation of CachyOS with the following configuration choices made: (Note, for information on installing CachyOS, please refer to https://www.cachyos.org.) 
 
 1. File System: You must choose BTRFS as the file system and Snapper as the snapshot manager. This aligns with CachyOS's default recommendation for most systems, and is required for Omarchy to properly function.
 
-2. Desktop Environment to Install: You can install a minimal system with no desktop environment or you can choose to install the CachyOS Hyprland Desktop Environment. If you have CachyOS install Hyprland, it will also install SDDM as the login display manager by default. Do not install GNOME or KDE.
+2. Shell: You must choose Fish as the default shell for this installation script to work properly. (This is the default CachyOS shell choice.)
 
-3. Graphics Drivers for NVIDIA users: If you are using an NVIDIA GPU, install the recommended graphics driver via CachyOS. The script will turn off driver installation in Omarchy. 
+3. Desktop Environment to Install: You can install a minimal system with no desktop environment or you can choose to install the CachyOS Hyprland Desktop Environment. If you have CachyOS install Hyprland, it will also install SDDM as the login display manager by default. Do not install GNOME or KDE.
+
+4. Graphics Drivers for NVIDIA users: If you are using an NVIDIA GPU, install the recommended graphics driver via CachyOS. The script will turn off driver installation in Omarchy. 
 
 Other configuration changes are up to you. Note, however, that this script has not been extensively tested on various CachyOS installations other than the author's own machine.
 
