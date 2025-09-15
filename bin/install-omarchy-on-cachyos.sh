@@ -92,6 +92,11 @@ sed -i '/eval "\$(mise activate bash)"/a\
 elif [ "$SHELL" = "\/bin\/fish" ] && command -v mise &> /dev/null; then\
   mise activate fish | source' config/uwsm/env
 
+# Copy omarchy installation files to ~/.local/share/omarchy
+mkdir ~/.local/share/omarchy
+cp -r * ~/.local/share/omarchy
+cd ~/.local/share/omarchy
+
 # Pause and prompt for acknowledgment to begin installation
 echo ""
 echo "The following adjustments have been completed."
