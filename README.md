@@ -2,7 +2,7 @@
 
 ## 1. Introduction
 
-This project provides an installation script for implementing DHH's Omarchy configuration on top of CachyOS. Omarchy is an 'opinionated' desktop setup, based on Hyprland, that emphasizes simplicity and productivity, while CachyOS offers a performance-optimized Arch Linux distribution.
+This project provides an installation script for implementing DHH's Omarchy configuration on top of CachyOS. Omarchy is an 'opinionated' desktop setup, based on Hyprland that emphasizes simplicity and productivity, while CachyOS offers a performance-optimized Arch Linux distribution.
 
 ## 2. What This Script Does and Does Not Do
 
