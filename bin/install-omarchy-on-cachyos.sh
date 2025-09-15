@@ -116,7 +116,7 @@ echo " C.) Limine as the boot loader."
 echo " D.) LUKS full disk encryption."
 echo "The script will then modify the boot environment and boot screen to Omarchy defaults."
 echo ""
-echo "Press Enter to begin instalation of Omarchy..."
+echo "Press Enter to begin the installation of Omarchy..."
 read -r
 
 # Run the modified install.sh script
