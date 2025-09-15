@@ -8,7 +8,7 @@ fi
 
 # Clone omarchy repository
 echo "Cloning omarchy repository..."
-if ! git clone https://github.com/basecamp/omarchy.git; then
+if ! git clone https://github.com/basecamp/omarchy.git ../omarchy; then
     echo "Error: Failed to clone omarchy repository."
     exit 1
 fi
@@ -42,20 +42,23 @@ else
 fi
 
 # Prompt user for username
+echo ""
 echo "Please enter your username:"
 read -r OMARCHY_USER_NAME
 export OMARCHY_USER_NAME
 
 # Prompt user for email address
+echo ""
 echo "Please enter your email address:"
 read -r OMARCHY_USER_EMAIL
 export OMARCHY_USER_EMAIL
 
 # Make adjustments to Omarchy install scripts to support CachyOS
+echo ""
 echo "Making adjustments to Omarchy install scripts to support CachyOS..."
 
 # Navigate to Omarchy install scripts
-cd omarchy
+cd ../omarchy
 
 # Remove tldr installation to prevent conflict with tealdeer install.
 sed -i '/^  tldr \\$/d' install/packages.sh
@@ -86,7 +89,7 @@ sed -i 's/if command -v mise &> \/dev\/null; then/if [ "$SHELL" = "\/bin\/bash" 
 
 # Add fish shell support to mise activation in config/uwsm/env
 sed -i '/eval "\$(mise activate bash)"/a\
-elif [ "$SHELL" = "/usr/bin/fish" ] && command -v mise &> /dev/null; then\
+elif [ "$SHELL" = "\/bin\/fish" ] && command -v mise &> /dev/null; then\
   mise activate fish | source' config/uwsm/env
 
 # Pause and prompt for acknowledgment to begin installation
@@ -100,17 +103,17 @@ echo " 5. Removed limine-snapper.sh from install.sh to avoid conflict with Cachy
 echo " 6. Removed alt-bootloaders.sh from install.sh to avoid conflict with CachyOS boot loader installation."
 echo ""
 echo "IMPORTANT: This script prevents Omarchy's install.sh from modifying your boot or login environment." 
-ehco "If you setup your CachyOS system to match Omarchy's default boot and login configuration, then"
-echo "please manually run the following commands from this directory after this installation script is complete:"
-echo " 1.) omarchy/install/login/plymouth.sh"  
-echo " 2.) omarchy/install/login/limine-snapper.sh"
-echo " 3.) omarchy/install/login/alt-bootloaders.sh"
+echo "If you setup your CachyOS system to match Omarchy's default boot and login configuration, then please"
+echo "run the following commands after this installation script is complete:"
+echo " 1.) ~/.local/share/omarchy/install/login/plymouth.sh"  
+echo " 2.) ~/.local/share/omarchy/install/login/limine-snapper.sh"
+echo " 3.) ~/.local/share/omarchy/install/login/alt-bootloaders.sh"
 echo ""
 echo "NOTE: The above commands assume CachyOS has been setup with"
 echo " A.) No login display manager installed."
 echo " B.) BTRFS as the file system and Snapper as the snapshot manager."
-echo " E.) Limine as the boot loader."
-echo " F.) LUKS full disk encryption."
+echo " C.) Limine as the boot loader."
+echo " D.) LUKS full disk encryption."
 echo "The script will then modify the boot environment and boot screen to Omarchy defaults."
 echo ""
 echo "Press Enter to begin instalation of Omarchy..."
@@ -124,17 +127,17 @@ echo "Omarchy has been successfully installed. Note that automatic reboot has be
 echo "As a reminder:"
 echo ""
 echo "IMPORTANT: This script prevented Omarchy's install.sh from modifying your boot or login environment." 
-echo "If you setup your CachyOS system to match Omarchy's default boot and login configuration, then"
-echo "please manually run the following commands from this directory after this installation script is complete:"
-echo " 1.) omarchy/install/login/plymouth.sh"  
-echo " 2.) omarchy/install/login/limine-snapper.sh"
-echo " 3.) omarchy/install/login/alt-bootloaders.sh"
+echo "If you setup your CachyOS system to match Omarchy's default boot and login configuration, then please"
+echo "run the following commands after this installation script is complete:"
+echo " 1.) ~/.local/share/omarchy/install/login/plymouth.sh"  
+echo " 2.) ~/.local/share/omarchy/install/login/limine-snapper.sh"
+echo " 3.) ~/.local/share/omarchy/install/login/alt-bootloaders.sh"
 echo ""
 echo "NOTE: The above commands assume CachyOS has been setup with"
 echo " A.) No login display manager installed."
 echo " B.) BTRFS as the file system and Snapper as the snapshot manager."
-echo " E.) Limine as the boot loader."
-echo " F.) LUKS full disk encryption."
+echo " C.) Limine as the boot loader."
+echo " D.) LUKS full disk encryption."
 echo "The script will then modify the boot environment and boot screen to Omarchy defaults."
 echo ""
 echo "If you have nothing else to do, please reboot your system before proceeding."
