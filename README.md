@@ -1,5 +1,7 @@
 # omarchy-on-cachyos
 
+UPDATE: THE INSTALL SCRIPT FOR OMARCHY 3.0 HAS CHANGED SIGNIFICANTLY, BREAKINKG omarch-on-cachyos. UNTIL SCRIPT IS UPDATED, USE ONLY WITH OMARCHY VERSION < 3.0 AND THEN DO INPLACE UPGRADE ON OMARCHY.  
+
 ## 1. Introduction
 
 This project provides an installation script for implementing DHH's Omarchy configuration on top of CachyOS. Omarchy is an 'opinionated' desktop setup, based on Hyprland that emphasizes simplicity and productivity, while CachyOS offers a performance-optimized Arch Linux distribution.
