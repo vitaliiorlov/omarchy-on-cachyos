@@ -6,14 +6,14 @@ if ! command -v git &> /dev/null; then
     exit 1
 fi
 
-# Clone omarchy repository
-echo "Cloning omarchy repository..."
-if ! git clone https://github.com/basecamp/omarchy.git ../omarchy; then
-    echo "Error: Failed to clone omarchy repository."
+# Extract omarchy from tar.gz file
+echo "Extracting omarchy from archive..."
+if ! tar -xzf omarchy-2.1.2.tar.gz -C ../ --transform 's/^omarchy-[^/]*/omarchy/'; then
+    echo "Error: Failed to extract omarchy archive."
     exit 1
 fi
 
-echo "Successfully cloned omarchy repository."
+echo "Successfully extracted omarchy archive."
 
 # Check if yay is installed
 if ! command -v yay &> /dev/null; then
