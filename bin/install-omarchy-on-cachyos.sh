@@ -8,7 +8,7 @@ fi
 
 # Extract omarchy from tar.gz file
 echo "Extracting omarchy from archive..."
-if ! tar -xzf omarchy-2.1.2.tar.gz -C ../ --transform 's/^omarchy-[^/]*/omarchy/'; then
+if ! tar -xzf omarchy-2.1.2.tar.gz -C ../ --transform 's|^omarchy-[^/]*|omarchy|'; then
     echo "Error: Failed to extract omarchy archive."
     exit 1
 fi
