@@ -66,7 +66,7 @@ git clone https://github.com/mroboff/omarchy-on-cachyos.git
 cd omarchy-on-cachyos/bin
 
 # Make the script executable
-chmod +x install.sh
+chmod +x install-omarchy-on-cachyos.sh
 
 # Run the installation script
 install.sh
