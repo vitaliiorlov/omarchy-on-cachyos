@@ -61,28 +61,25 @@ echo "Making adjustments to Omarchy install scripts to support CachyOS..."
 cd ../omarchy
 
 # Remove tldr installation to prevent conflict with tealdeer install.
-sed -i '/^  tldr \\$/d' install/packages.sh
+sed -i '/^  tldr \\$/d' install/omarchy-base.packages
 
-# Remove guard.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/preflight\/guard\.sh/d' install.sh
+# Remove pacman.sh from preflight/all.sh to prevent conflict with cachyos packages
+sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/preflight/all.sh
 
 # Remove nvidia.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/config\/hardware\/nvidia\.sh/d' install.sh
-
-# Remove intel.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/config\/hardware\/intel\.sh/d' install.sh
+sed -i '/source \$OMARCHY_INSTALL\/config\/hardware\/nvidia\.sh/d' install/config/all.sh
 
 # Remove plymouth.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/login\/plymouth\.sh/d' install.sh
+sed -i '/source \$OMARCHY_INSTALL\/login\/plymouth\.sh/d' install/login/all.sh
 
 # Remove limine-snapper.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/login\/limine-snapper\.sh/d' install.sh
+sed -i '/source \$OMARCHY_INSTALL\/login\/limine-snapper\.sh/d' install/login/all.sh
 
 # Remove alt-bootloaders.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/login\/alt-bootloaders\.sh/d' install.sh
+sed -i '/source \$OMARCHY_INSTALL\/login\/alt-bootloaders\.sh/d' install/login/all.sh
 
-# Remove reboot.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/reboot\.sh/d' install.sh
+# Remove pacman.sh from post-install/all.sh to prevent conflict with cachyos packages
+sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/post-install/all.sh
 
 # Add shell environment check to mise conditional in config/uwsm/env
 sed -i 's/if command -v mise &> \/dev\/null; then/if [ "$SHELL" = "\/bin\/bash" ] \&\& command -v mise \&> \/dev\/null; then/' config/uwsm/env
@@ -101,11 +98,12 @@ cd ~/.local/share/omarchy
 echo ""
 echo "The following adjustments have been completed."
 echo " 1. Removed tldr from packages.sh to avoid conflict with tealdeer on CachyOS."
-echo " 2. Removed nvidia.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
-echo " 3. Removed intel.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
-echo " 4. Removed plymouth.sh from install.sh to avoid conflict with CachyOS login display manager installation."
-echo " 5. Removed limine-snapper.sh from install.sh to avoid conflict with CachyOS boot loader installation."
-echo " 6. Removed alt-bootloaders.sh from install.sh to avoid conflict with CachyOS boot loader installation."
+echo " 2. Disabled Omarchy changes to pacman.conf, preserving CachyOS settings."
+echo " 3. Removed nvidia.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
+echo " 4. Removed intel.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
+echo " 5. Removed plymouth.sh from install.sh to avoid conflict with CachyOS login display manager installation."
+echo " 6. Removed limine-snapper.sh from install.sh to avoid conflict with CachyOS boot loader installation."
+echo " 7. Removed alt-bootloaders.sh from install.sh to avoid conflict with CachyOS boot loader installation."
 echo ""
 echo "IMPORTANT: This script prevents Omarchy's install.sh from modifying your boot or login environment." 
 echo "If you setup your CachyOS system to match Omarchy's default boot and login configuration, then please"
@@ -128,7 +126,7 @@ read -r
 ./install.sh
 
 echo ""
-echo "Omarchy has been successfully installed. Note that automatic reboot has been turned off."
+echo "Omarchy has been successfully installed."
 echo "As a reminder:"
 echo ""
 echo "IMPORTANT: This script prevented Omarchy's install.sh from modifying your boot or login environment." 
