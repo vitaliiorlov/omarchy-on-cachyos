@@ -8,7 +8,7 @@ fi
 
 # Clone omarhcy from repo
 echo "Clone Omarhcy from repo..."
-if ! git clone https://www.github.com/basecamp/omarchy ../; then
+if ! git clone https://www.github.com/basecamp/omarchy ../omarchy; then
     echo "Error: Failed to clone Omarchy repo."
     exit 1
 fi
