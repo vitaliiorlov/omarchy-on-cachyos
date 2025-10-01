@@ -6,10 +6,10 @@ if ! command -v git &> /dev/null; then
     exit 1
 fi
 
-# Extract omarchy from tar.gz file
-echo "Extracting omarchy from archive..."
-if ! tar -xzf omarchy-2.1.2.tar.gz -C ../ --transform 's/^omarchy-[^/]*/omarchy/'; then
-    echo "Error: Failed to extract omarchy archive."
+# Clone omarhcy from repo
+echo "Clone Omarhcy from repo..."
+if ! git clone https://www.github.com/basecamp/omarchy ../; then
+    echo "Error: Failed to clone Omarchy repo."
     exit 1
 fi
 
