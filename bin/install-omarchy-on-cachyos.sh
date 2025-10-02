@@ -61,7 +61,7 @@ echo "Making adjustments to Omarchy install scripts to support CachyOS..."
 cd ../omarchy
 
 # Remove tldr installation to prevent conflict with tealdeer install.
-sed -i '/^  tldr \\$/d' install/omarchy-base.packages
+sed -i '/tldr/d' install/omarchy-base.packages
 
 # Remove pacman.sh from preflight/all.sh to prevent conflict with cachyos packages
 sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/preflight/all.sh
@@ -122,7 +122,7 @@ echo ""
 echo "Press Enter to begin the installation of Omarchy..."
 read -r
 
-# Run the modified install.sh script
+# Run the modified install.sh script 
 chmod +x install.sh
 ./install.sh
 
