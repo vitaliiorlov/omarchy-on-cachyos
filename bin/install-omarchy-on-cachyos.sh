@@ -6,11 +6,10 @@ if ! command -v git &> /dev/null; then
     exit 1
 fi
 
-# Clone omarhcy from repo
+# Clone omarchyy from repo
 echo "Clone Omarhcy from repo..."
 if ! git clone https://www.github.com/basecamp/omarchy ../omarchy; then
     echo "Error: Failed to clone Omarchy repo."
-    exit 1
 fi
 
 echo "Successfully extracted omarchy archive."
