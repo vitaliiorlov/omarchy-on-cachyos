@@ -6,10 +6,10 @@ if ! command -v git &> /dev/null; then
     exit 1
 fi
 
-# Clone omarhcy from repo
-echo "Clone Omarhcy from repo..."
-if ! git clone https://www.github.com/basecamp/omarchy ../omarchy; then
-    echo "Error: Failed to clone Omarchy repo."
+# Extract omarchy from tar.gz file
+echo "Extracting omarchy from archive..."
+if ! tar -xzf omarchy-2.1.2.tar.gz -C ../ --transform 's/^omarchy-[^/]*/omarchy/'; then
+    echo "Error: Failed to extract omarchy archive."
     exit 1
 fi
 
@@ -20,7 +20,7 @@ if ! command -v yay &> /dev/null; then
     echo "yay is not installed. Installing yay..."
 
     # Install dependencies for building yay
-    sudo pacman -S --needed --noconfim git base-devel
+    sudo pacman -S --needed --noconfirm git base-devel
 
     # Clone and build yay
     git clone https://aur.archlinux.org/yay.git /tmp/yay
@@ -40,10 +40,6 @@ if ! command -v yay &> /dev/null; then
 else
     echo "yay is already installed."
 fi
-
-# add omarchy repo to pacman.conf
-echo "Adding omarchy repo to pacman.conf..."
-sudo echo "\n[omarchy]\nSigLevel = Optional TrustedOnly\nServer = https://pkgs.omarchy.org/$arch" >> /etc/pacman.conf
 
 # Prompt user for username
 echo ""
@@ -65,25 +61,32 @@ echo "Making adjustments to Omarchy install scripts to support CachyOS..."
 cd ../omarchy
 
 # Remove tldr installation to prevent conflict with tealdeer install.
-sed -i '/tldr/d' install/omarchy-base.packages
+sed -i '/^  tldr \\$/d' install/packages.sh
 
-# Remove pacman.sh from preflight/all.sh to prevent conflict with cachyos packages
+# Add omarchy repository to pacman.conf
+echo -e "\n[omarchy]\nSigLevel = Optional TrustedOnly\nServer = https://pkgs.omarchy.org/\$(uname -m)" | sudo tee -a /etc/pacman.conf > /dev/null
+sudo pacman -Syu
+
+# Remove pacman.sh line from preflight/all.sh to prevent conflict with cachyos packages
 sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/preflight/all.sh
 
 # Remove nvidia.sh source line from install.sh
-sed -i '/run_logged \$OMARCHY_INSTALL\/config\/hardware\/nvidia\.sh/d' install/config/all.sh
+sed -i '/source \$OMARCHY_INSTALL\/config\/hardware\/nvidia\.sh/d' install.sh
+
+# Remove intel.sh source line from install.sh
+sed -i '/source \$OMARCHY_INSTALL\/config\/hardware\/intel\.sh/d' install.sh
 
 # Remove plymouth.sh source line from install.sh
-sed -i '/run_logged \$OMARCHY_INSTALL\/login\/plymouth\.sh/d' install/login/all.sh
+sed -i '/source \$OMARCHY_INSTALL\/login\/plymouth\.sh/d' install.sh
 
 # Remove limine-snapper.sh source line from install.sh
-sed -i '/run_logged \$OMARCHY_INSTALL\/login\/limine-snapper\.sh/d' install/login/all.sh
+sed -i '/source \$OMARCHY_INSTALL\/login\/limine-snapper\.sh/d' install.sh
 
 # Remove alt-bootloaders.sh source line from install.sh
-sed -i '/run_logged \$OMARCHY_INSTALL\/login\/alt-bootloaders\.sh/d' install/login/all.sh
+sed -i '/source \$OMARCHY_INSTALL\/login\/alt-bootloaders\.sh/d' install.sh
 
-# Remove pacman.sh from post-install/all.sh to prevent conflict with cachyos packages
-sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/post-install/all.sh
+# Remove reboot.sh source line from install.sh
+sed -i '/source \$OMARCHY_INSTALL\/reboot\.sh/d' install.sh
 
 # Add shell environment check to mise conditional in config/uwsm/env
 sed -i 's/if command -v mise &> \/dev\/null; then/if [ "$SHELL" = "\/bin\/bash" ] \&\& command -v mise \&> \/dev\/null; then/' config/uwsm/env
@@ -102,12 +105,11 @@ cd ~/.local/share/omarchy
 echo ""
 echo "The following adjustments have been completed."
 echo " 1. Removed tldr from packages.sh to avoid conflict with tealdeer on CachyOS."
-echo " 2. Disabled Omarchy changes to pacman.conf, preserving CachyOS settings."
-echo " 3. Removed nvidia.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
-echo " 4. Removed intel.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
-echo " 5. Removed plymouth.sh from install.sh to avoid conflict with CachyOS login display manager installation."
-echo " 6. Removed limine-snapper.sh from install.sh to avoid conflict with CachyOS boot loader installation."
-echo " 7. Removed alt-bootloaders.sh from install.sh to avoid conflict with CachyOS boot loader installation."
+echo " 2. Removed nvidia.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
+echo " 3. Removed intel.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
+echo " 4. Removed plymouth.sh from install.sh to avoid conflict with CachyOS login display manager installation."
+echo " 5. Removed limine-snapper.sh from install.sh to avoid conflict with CachyOS boot loader installation."
+echo " 6. Removed alt-bootloaders.sh from install.sh to avoid conflict with CachyOS boot loader installation."
 echo ""
 echo "IMPORTANT: This script prevents Omarchy's install.sh from modifying your boot or login environment." 
 echo "If you setup your CachyOS system to match Omarchy's default boot and login configuration, then please"
@@ -126,12 +128,11 @@ echo ""
 echo "Press Enter to begin the installation of Omarchy..."
 read -r
 
-# Run the modified install.sh script 
-chmod +x install.sh
+# Run the modified install.sh script
 ./install.sh
 
 echo ""
-echo "Omarchy has been successfully installed."
+echo "Omarchy has been successfully installed. Note that automatic reboot has been turned off."
 echo "As a reminder:"
 echo ""
 echo "IMPORTANT: This script prevented Omarchy's install.sh from modifying your boot or login environment." 
