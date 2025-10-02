@@ -20,7 +20,7 @@ if ! command -v yay &> /dev/null; then
     echo "yay is not installed. Installing yay..."
 
     # Install dependencies for building yay
-    sudo pacman -S --needed --noconfirm git base-devel
+    sudo pacman -S --needed --noconfim git base-devel
 
     # Clone and build yay
     git clone https://aur.archlinux.org/yay.git /tmp/yay
@@ -40,6 +40,10 @@ if ! command -v yay &> /dev/null; then
 else
     echo "yay is already installed."
 fi
+
+# add omarchy repo to pacman.conf
+echo "Adding omarchy repo to pacman.conf..."
+sudo echo "\n[omarchy]\nSigLevel = Optional TrustedOnly\nServer = https://pkgs.omarchy.org/$arch" >> /etc/pacman.conf
 
 # Prompt user for username
 echo ""
@@ -67,16 +71,16 @@ sed -i '/tldr/d' install/omarchy-base.packages
 sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/preflight/all.sh
 
 # Remove nvidia.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/config\/hardware\/nvidia\.sh/d' install/config/all.sh
+sed -i '/run_logged \$OMARCHY_INSTALL\/config\/hardware\/nvidia\.sh/d' install/config/all.sh
 
 # Remove plymouth.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/login\/plymouth\.sh/d' install/login/all.sh
+sed -i '/run_logged \$OMARCHY_INSTALL\/login\/plymouth\.sh/d' install/login/all.sh
 
 # Remove limine-snapper.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/login\/limine-snapper\.sh/d' install/login/all.sh
+sed -i '/run_logged \$OMARCHY_INSTALL\/login\/limine-snapper\.sh/d' install/login/all.sh
 
 # Remove alt-bootloaders.sh source line from install.sh
-sed -i '/source \$OMARCHY_INSTALL\/login\/alt-bootloaders\.sh/d' install/login/all.sh
+sed -i '/run_logged \$OMARCHY_INSTALL\/login\/alt-bootloaders\.sh/d' install/login/all.sh
 
 # Remove pacman.sh from post-install/all.sh to prevent conflict with cachyos packages
 sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/post-install/all.sh
