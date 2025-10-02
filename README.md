@@ -1,6 +1,6 @@
 # omarchy-on-cachyos
 
-UPDATE: The install script for Omarchy 3.0+ is incompatible with omarchy-on-cachyos and will require a full rewrite of the install-omarchy-on-cachyos shell script. In the mean time, the install script has been modified to install Omarchy 2.1.2 from an included tar.gz archive. This will successfully install Omarchy. Then, the user can run Omarchy Update after install to update to the latest post 3.0 version.
+UPDATE 1-October-2025: The install script has been updated to support Omarchy 3.0+ out of the box. 
 
 ## 1. Introduction
 
