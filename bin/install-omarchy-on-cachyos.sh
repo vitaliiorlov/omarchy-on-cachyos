@@ -19,7 +19,7 @@ if ! command -v yay &> /dev/null; then
     echo "yay is not installed. Installing yay..."
 
     # Install dependencies for building yay
-    sudo pacman -S --needed --noconfim git base-devel
+    sudo pacman -S --needed --noconfirm git base-devel
 
     # Clone and build yay
     git clone https://aur.archlinux.org/yay.git /tmp/yay
