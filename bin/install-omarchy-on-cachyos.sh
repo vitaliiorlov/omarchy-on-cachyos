@@ -82,7 +82,7 @@ sed -i '/run_logged \$OMARCHY_INSTALL\/login\/limine-snapper\.sh/d' install/logi
 sed -i '/run_logged \$OMARCHY_INSTALL\/login\/alt-bootloaders\.sh/d' install/login/all.sh
 
 # Remove pacman.sh from post-install/all.sh to prevent conflict with cachyos packages
-sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/post-install/all.sh
+sed -i '/run_logged \$OMARCHY_INSTALL\/post-install\/pacman\.sh/d' install/post-install/all.sh
 
 # Add shell environment check to mise conditional in config/uwsm/env
 sed -i 's/if command -v mise &> \/dev\/null; then/if [ "$SHELL" = "\/bin\/bash" ] \&\& command -v mise \&> \/dev\/null; then/' config/uwsm/env
@@ -93,7 +93,7 @@ elif [ "$SHELL" = "\/bin\/fish" ] && command -v mise &> /dev/null; then\
   mise activate fish | source' config/uwsm/env
 
 # Copy omarchy installation files to ~/.local/share/omarchy
-mkdir ~/.local/share/omarchy
+mkdir -p ~/.local/share/omarchy
 cp -r * ~/.local/share/omarchy
 cd ~/.local/share/omarchy
 
