@@ -46,7 +46,7 @@ sudo pacman -Syu
 
 # Prompt user for username
 echo ""
-echo "Please enter your username:"
+echo "Please enter your full name (needed for Git):"
 read -r OMARCHY_USER_NAME
 export OMARCHY_USER_NAME
 
@@ -73,7 +73,7 @@ sed -i '/run_logged \$OMARCHY_INSTALL\/preflight\/pacman\.sh/d' install/prefligh
 sed -i '/run_logged \$OMARCHY_INSTALL\/config\/hardware\/nvidia\.sh/d' install/config/all.sh
 
 # Remove plymouth.sh source line from install.sh
-sed -i '/run_logged \$OMARCHY_INSTALL\/login\/plymouth\.sh/d' install/login/all.sh
+# sed -i '/run_logged \$OMARCHY_INSTALL\/login\/plymouth\.sh/d' install/login/all.sh
 
 # Remove limine-snapper.sh source line from install.sh
 sed -i '/run_logged \$OMARCHY_INSTALL\/login\/limine-snapper\.sh/d' install/login/all.sh
@@ -104,7 +104,7 @@ echo " 1. Added Omarchy repo to pacman.conf"
 echo " 2. Removed tldr from packages.sh to avoid conflict with tealdeer on CachyOS."
 echo " 3. Disabled further Omarchy changes to pacman.conf, preserving CachyOS settings."
 echo " 4. Removed nvidia.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
-echo " 5. Removed plymouth.sh from install.sh to avoid conflict with CachyOS login display manager installation."
+# echo " 5. Removed plymouth.sh from install.sh to avoid conflict with CachyOS login display manager installation."
 echo " 6. Removed limine-snapper.sh from install.sh to avoid conflict with CachyOS boot loader installation."
 echo " 7. Removed alt-bootloaders.sh from install.sh to avoid conflict with CachyOS boot loader installation."
 echo ""
