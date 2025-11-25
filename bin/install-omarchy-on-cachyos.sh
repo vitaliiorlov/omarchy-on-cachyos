@@ -7,7 +7,7 @@ if ! command -v git &> /dev/null; then
 fi
 
 # Clone omarchyy from repo
-echo "Clone Omarhcy from repo..."
+echo "Clone Omarchy from repo..."
 if ! git clone https://www.github.com/basecamp/omarchy ../omarchy; then
     echo "Error: Failed to clone Omarchy repo."
 fi
