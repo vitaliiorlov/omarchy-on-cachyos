@@ -97,6 +97,19 @@ sed -i '/eval "\$(mise activate bash)"/a\
 elif [ "$SHELL" = "\/bin\/fish" ] && command -v mise &> /dev/null; then\
   mise activate fish | source' config/uwsm/env
 
+# Remove fcitx5 packages from installation (using Hyprland native keyboard switching instead)
+sed -i '/fcitx5/d' install/omarchy-base.packages
+sed -i '/fcitx5/d' install/omarchy-other.packages
+
+# Remove fcitx environment configuration
+rm -f config/environment.d/fcitx.conf
+
+# Comment out fcitx5 restart in omarchy-restart-xcompose
+sed -i 's/^omarchy-restart-app fcitx5$/# omarchy-restart-app fcitx5/' bin/omarchy-restart-xcompose
+
+# Comment out fcitx5 autostart in Hyprland
+sed -i 's/^exec-once = uwsm-app -- fcitx5$/# exec-once = uwsm-app -- fcitx5/' default/hypr/autostart.conf
+
 # Copy omarchy installation files to ~/.local/share/omarchy
 mkdir -p ~/.local/share/omarchy
 cp -r . ~/.local/share/omarchy
@@ -110,8 +123,9 @@ echo " 2. Removed tldr from packages.sh to avoid conflict with tealdeer on Cachy
 echo " 3. Disabled further Omarchy changes to pacman.conf, preserving CachyOS settings."
 echo " 4. Removed nvidia.sh from install.sh to avoid conflict with CachyOS graphics driver installation."
 # echo " 5. Removed plymouth.sh from install.sh to avoid conflict with CachyOS login display manager installation."
-echo " 6. Removed limine-snapper.sh from install.sh to avoid conflict with CachyOS boot loader installation."
-echo " 7. Removed alt-bootloaders.sh from install.sh to avoid conflict with CachyOS boot loader installation."
+echo " 5. Removed limine-snapper.sh from install.sh to avoid conflict with CachyOS boot loader installation."
+echo " 6. Removed alt-bootloaders.sh from install.sh to avoid conflict with CachyOS boot loader installation."
+echo " 7. Removed fcitx5 packages and configs (using Hyprland native keyboard switching instead)."
 echo ""
 echo "IMPORTANT: If you installed CachyOS without a deskop environment, you will not have a display manager installed." 
 echo "If this is the case, you will need to run the following command after this installation script is complete:"
